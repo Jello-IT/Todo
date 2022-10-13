@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {RestService} from "../service/rest.service";
 import {TodoListModel} from "../Model/todo-list-model";
+import {ConverterListService} from "../service/converter-list.service";
 
 @Component({
   selector: 'app-list-overview',
@@ -11,7 +12,8 @@ export class ListOverviewComponent implements OnInit {
 
   public list: TodoListModel[] = [];
 
-  constructor(private rest: RestService) {
+
+  constructor(private rest: RestService,private converter: ConverterListService) {
 
   }
 
@@ -21,10 +23,10 @@ export class ListOverviewComponent implements OnInit {
   getOverview():void{
     this.rest.getAll().subscribe({
       next: (value) =>{
-
+        this.list = this.converter.convertList(value);
       },
-      error: (errror) => {
-
+      error: (error) => {
+        console.log(error);
       }
     });
   }
