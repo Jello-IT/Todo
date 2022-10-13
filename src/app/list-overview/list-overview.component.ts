@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {RestService} from "../service/rest.service";
+import {TodoListModel} from "../Model/todo-list-model";
 
 @Component({
   selector: 'app-list-overview',
@@ -7,6 +8,8 @@ import {RestService} from "../service/rest.service";
   styleUrls: ['./list-overview.component.scss']
 })
 export class ListOverviewComponent implements OnInit {
+
+  public list: TodoListModel[] = [];
 
   constructor(private rest: RestService) {
 
@@ -16,7 +19,14 @@ export class ListOverviewComponent implements OnInit {
   }
 
   getOverview():void{
-    this.rest.getAll();
+    this.rest.getAll().subscribe({
+      next: (value) =>{
+
+      },
+      error: (errror) => {
+
+      }
+    });
   }
 
 }
